@@ -13,25 +13,23 @@ app.set('view engine', 'ejs');
 // define view folder:
 app.set('views', './views');
 
-
-// DATABASE_URL=mysql://root:Aa@123456@localhost/dev_mrmax?serverVersion=5.7
-// DATABASE_SLAVE1_URL=mysql://root:Aa@123456@localhost/dev_mrmax?serverVersion=5.7
-
-
+const pool = mysql.createPool({
+    host: process.env.DATABASE_HOST,
+    user: process.env.DATABASE_USER,
+    database: process.env.DATABASE_NAME,
+    password: process.env.DATABASE_PWD
+});
 
 // route
 app.get('/', async function (req, res) {
-
-    // "await" wait for connect done
-    const connection = await mysql.createConnection({host:'localhost', user: 'root', database: 'qlsv_k98', password: 'Aa@123456'});
     // query database
-    const [rows, fields] = await connection.execute('select * from student');
-    console.log(rows);
-
+    const [rows, fields] = await pool.execute('select * from student');
+    pool.end();
     res.render('index', {
         a1: 'con bò',
         a2: 'con cá',
-        app_name: process.env.APP_NAME
+        app_name: process.env.APP_NAME,
+        rows: rows
     });
 })
 // route
