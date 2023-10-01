@@ -1,6 +1,14 @@
+const studentModel = require('../models/Student');
+
 class StudentController {
-    static index = (req, res) => {
-        res.end('wkeghowie');
+    static index = async (req, res) => {
+        const student = new studentModel();
+        const rows = await student.all();
+        console.log(rows);
+
+        res.render('student/index', {
+            rows: rows
+        });
     }
 }
 
