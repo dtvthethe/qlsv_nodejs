@@ -1,28 +1,23 @@
 const express = require('express');
 const expressLayouts = require('express-ejs-layouts');
-const mysql = require('mysql2/promise');
+const path = require('path');
 
 require('dotenv').config();
 const app = express();
 app.use(expressLayouts);
 
 const hostname = '127.0.0.1';
-const port = 8080;
+const port = 8081;
 
 // define: 'view engine':
 app.set('view engine', 'ejs');
 // define view folder:
 app.set('views', './views');
 
-// const pool = mysql.createPool({
-//     host: process.env.DATABASE_HOST,
-//     user: process.env.DATABASE_USER,
-//     database: process.env.DATABASE_NAME,
-//     password: process.env.DATABASE_PWD
-// });
-
-// const [rows, fields] = await pool.execute('select * from student');
-//     pool.end();
+// chỉ định file tĩnh thư mục public
+// console.log(__dirname);
+// app.use(express.static(`${__dirname}/public`));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // route
 const studentRouter = require('./routers/StudentRouter');
