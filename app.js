@@ -19,6 +19,20 @@ app.set('views', './views');
 // app.use(express.static(`${__dirname}/public`));
 app.use(express.static(path.join(__dirname, 'public')));
 
+// body-parser
+const bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+// session
+const session = require('express-session');
+app.use(session({
+    secret: 'qlsv secret key',
+    resave: false,
+    saveUninitialized: true,
+    // cookie: { secure: true }
+}));
+
 // route
 const studentRouter = require('./routers/StudentRouter');
 app.use('/', studentRouter);

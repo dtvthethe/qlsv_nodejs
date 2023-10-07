@@ -9,7 +9,8 @@ const pool = mysql.createPool({
     host: process.env.DATABASE_HOST,
     user: process.env.DATABASE_USER,
     database: process.env.DATABASE_NAME,
-    password: process.env.DATABASE_PWD
+    password: process.env.DATABASE_PWD,
+    dateStrings: ['DATE', 'DATETIME', 'TIMESTAMP'] // trả về kiểu datetime giống như format trong database
 });
 
 module.exports = pool;
