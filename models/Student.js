@@ -23,7 +23,41 @@ class Student {
             data.gender
         ]);
 
-        return result.insertId
+        return result.insertId;
+    }
+
+    find = async (id) => {
+        const [rows] = await pool.execute('select * from student where id = ?', [
+            id
+        ]);
+
+        if (rows.length == 0) {
+            return null;
+        }
+
+        const row = rows[0];
+        const student = this.convertToObject(row);
+
+        return student;
+    }
+
+    update = async () => {
+        const [result] = await pool.execute('UPDATE student SET name=?, birthday=?, gender=? WHERE id=?', [
+            this.name,
+            this.birthday,
+            this.gender,
+            this.id
+        ]);
+
+        return true;
+    }
+
+    destroy = async () => {
+        const [result] = await pool.execute('DELETE FROM student WHERE id=?', [
+            this.id
+        ]);
+
+        return true;
     }
 
     convertToObject = (row) => {

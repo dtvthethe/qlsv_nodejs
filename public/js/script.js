@@ -1,5 +1,5 @@
-$('button.delete').click(function (e) { 
+$('button.btn-destroy').click(function (e) { 
 	e.preventDefault();
-	var dataUrl = $(this).attr('data-url');
-	alert(dataUrl);
+	var dataUrl = $(this).attr('data-href');
+	$('#exampleModal a').attr('href', dataUrl);
 });

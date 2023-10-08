@@ -23,18 +23,23 @@
     for(const student of students) {
       stt++
     %>
-      <tr>
-        <td><%=stt%></td>
-        <td><%=student.id%></td>
-        <td><%=student.name%></td>
-        <td><%=student.birthday%></td>
-        <td><%=student.gender%></td>
-        <td><a href="edit.html">Sửa</a></td>
-        <td><a data="1" class="delete" href="list.html" type="student">Xóa</a></td>
-      </tr>
+    <tr>
+      <td><%=stt%></td>
+      <td><%=student.id%></td>
+      <td><%=student.name%></td>
+      <td><%=student.birthday%></td>
+      <td><%=student.gender%></td>
+      <td><a href="/edit/<%=student.id%>" class="btn btn-warning btn-sm">Sửa</a></td>
+      <td>
+        <button data-href="/destroy/<%=student.id%>" type="button" class="btn btn-danger btn-sm btn-destroy" data-toggle="modal" data-target="#exampleModal">
+          Xóa
+        </button>
+      </td>
+    </tr>
     <%}%>
       </tbody>
     </table>
     <div>
       <span>Số lượng: 3</span>
     </div>
+
