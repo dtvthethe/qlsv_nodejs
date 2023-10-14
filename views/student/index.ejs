@@ -1,7 +1,8 @@
 <h1>Danh sách sinh viên</h1>
 <a href="/create" class="btn btn-info">Add</a>
-<form action="list.html" method="GET">
-  <label class="form-inline justify-content-end">Tìm kiếm: <input type="search" name="search" class="form-control" value="">
+<form action="/" method="GET">
+  <label class="form-inline justify-content-end">Tìm kiếm: <input type="search" name="search" class="form-control"
+      value="<%=search%>">
     <button class="btn btn-danger">Tìm</button>
   </label>
 </form>
@@ -18,28 +19,37 @@
     </tr>
   </thead>
   <tbody>
-    <%
-    let stt = 0;
-    for(const student of students) {
-      stt++
-    %>
-    <tr>
-      <td><%=stt%></td>
-      <td><%=student.id%></td>
-      <td><%=student.name%></td>
-      <td><%=student.birthday%></td>
-      <td><%=student.gender%></td>
-      <td><a href="/edit/<%=student.id%>" class="btn btn-warning btn-sm">Sửa</a></td>
-      <td>
-        <button data-href="/destroy/<%=student.id%>" type="button" class="btn btn-danger btn-sm btn-destroy" data-toggle="modal" data-target="#exampleModal">
-          Xóa
-        </button>
-      </td>
-    </tr>
-    <%}%>
-      </tbody>
-    </table>
-    <div>
-      <span>Số lượng: 3</span>
-    </div>
+    <% let stt=0; for(const student of students) { stt++; %>
+      <tr>
+        <td>
+          <%=stt%>
+        </td>
+        <td>
+          <%=student.id%>
+        </td>
+        <td>
+          <%=student.name%>
+        </td>
+        <td>
+          <%=student.birthday%>
+        </td>
+        <td>
+          <%=student.gender%>
+        </td>
+        <td><a href="/edit/<%=student.id%>" class="btn btn-warning btn-sm">Sửa</a></td>
+        <td>
 
+          <button data-href="/destroy/<%=student.id%>" type="button" class="btn btn-danger btn-sm destroy"
+            data-toggle="modal" data-target="#exampleModal">
+            Xóa
+          </button>
+        </td>
+      </tr>
+      <% } %>
+  </tbody>
+</table>
+
+<%-include('../pagination')%>
+  <div>
+    <span>Số lượng: <%=stt%></span>
+  </div>
