@@ -1,0 +1,38 @@
+<h1>Đây là trang chủ</h1>
+<p>
+  <!-- lorem50 -->
+  Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium dignissimos vel ex blanditiis veritatis beatae,
+  non eius, sit ducimus assumenda quasi maxime quos dolorum! Voluptatum molestiae quis nesciunt ex, tenetur mollitia
+  reiciendis nihil ab magni rem in porro placeat qui quod, architecto earum, doloribus provident. At nam dolorum
+  praesentium mollitia.
+</p>
+<!-- b4-table-default -->
+<table class="table">
+  <thead>
+    <tr>
+      <th>Mã</th>
+      <th>Tên</th>
+      <th>Ngày sinh</th>
+      <th>Giới tính</th>
+    </tr>
+  </thead>
+  <!-- forof -->
+  <% for(const row of rows) {%>
+
+    <tr>
+      <td>
+        <%= row.id%>
+      </td>
+      <td>
+        <%= row.name%>
+      </td>
+      <td>
+        <%= row.birthday%>
+      </td>
+      <td>
+        <%= row.gender%>
+      </td>
+    </tr>
+    <% } %>
+      </tbody>
+</table>
