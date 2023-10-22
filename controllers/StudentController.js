@@ -1,4 +1,5 @@
 const studentModel = require('../models/Student');
+const registerModel = require('../models/Register');
 class StudentController {
     // Hiển thị danh sách sinh viên
     static index = async (req, res) => {
@@ -8,6 +9,7 @@ class StudentController {
             // Number là hàm chuyển chuỗi thành số
             const page = Number(req.query.page || 1);
             const item_per_page = Number(process.env.ITEM_PER_PAGE);
+            console.log(page, item_per_page);
             let students;
             let totalStudents;
             if (search) {
@@ -20,14 +22,19 @@ class StudentController {
             }
             const totalPage = Math.ceil(totalStudents.length / item_per_page);
             const message_success = req.session.message_success;
+            const message_error = req.session.message_error;
             // xóa thuộc tính có tên là message_success
+            // xóa thuộc tính có tên là message_error
             delete req.session.message_success;
+            delete req.session.message_error;
             res.render('student/index', {
-                students: students, 
+                students: students,
                 message_success: message_success,
-                search:search,
+                message_error: message_error,
+                search: search,
                 totalPage: totalPage,
                 page: page,
+                module_name: 'student'
             });
 
         } catch (error) {
@@ -42,7 +49,7 @@ class StudentController {
     static create = (req, res) => {
         // trycatch
         try {
-            res.render('student/create', {});
+            res.render('student/create', { module_name: 'student' });
         } catch (error) {
             // 500 là lỗi internal server (lỗi xãy ra ở server)
             console.log(error);//dành cho dev xem
@@ -78,7 +85,7 @@ class StudentController {
             // lấy tham số ở route thông qua params
             const id = req.params.id;
             const student = await studentModel.find(id);
-            res.render('student/edit', { student: student });
+            res.render('student/edit', { student: student, module_name: 'student' });
         } catch (error) {
             // 500 là lỗi internal server (lỗi xãy ra ở server)
             console.log(error);//dành cho dev xem
@@ -128,6 +135,15 @@ class StudentController {
 
             // Lấy sinh viên từ database lên
             const student = await studentModel.find(id);
+
+            // Kiểm tra sinh viên đăng ký môn học chưa?
+            const registers = await registerModel.getByStudentId(id);
+            const num = registers.length;
+            if (num > 0) {
+                req.session.message_error = `Sinh viên ${student.name} đăng ký ${num} môn học. Không thể xóa`;
+                res.redirect('/');
+                return;//Kết thúc hàm destroy. Không cho chạy code phía dưới
+            }
 
             // Xóa sinh viên này trong database
             await student.destroy();

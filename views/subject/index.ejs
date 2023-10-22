@@ -1,0 +1,53 @@
+<h1>Danh sách môn học</h1>
+<a href="/subject/create" class="btn btn-info">Add</a>
+<form action="/subject" method="GET">
+  <label class="form-inline justify-content-end">Tìm kiếm: <input type="search" name="search" class="form-control"
+      value="<%=search%>">
+    <button class="btn btn-danger">Tìm</button>
+  </label>
+</form>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Mã MH</th>
+      <th>Tên</th>
+      <th>Số tín chỉ</th>
+      <th colspan="2">Tùy Chọn</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% let stt=0; 
+    for(const subject of subjects) { 
+      stt++; 
+      %>
+      <tr>
+        <td>
+          <%=stt%>
+        </td>
+        <td>
+          <%=subject.id%>
+        </td>
+        <td>
+          <%=subject.name%>
+        </td>
+        <td>
+          <%=subject.number_of_credit%>
+        </td>
+        <td><a href="/subject/edit/<%=subject.id%>" class="btn btn-warning btn-sm">Sửa</a></td>
+        <td>
+
+          <button data-href="/subject/destroy/<%=subject.id%>" type="button" class="btn btn-danger btn-sm destroy"
+            data-toggle="modal" data-target="#exampleModal">
+            Xóa
+          </button>
+        </td>
+      </tr>
+      <% } %>
+  </tbody>
+</table>
+
+<%-include('../pagination')%>
+  <div>
+    <span>Số lượng: <%=stt%></span>
+  </div>
