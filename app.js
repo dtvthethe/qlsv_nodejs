@@ -48,6 +48,12 @@ app.use(session({
 const studentRouter = require('./routers/StudentRouter');
 app.use('/', studentRouter);
 
+const subjectRouter = require('./routers/SubjectRouter');
+app.use('/subject', subjectRouter);
+
+const registerRouter = require('./routers/RegisterRouter');
+app.use('/register', registerRouter);
+
 app.listen(port, hostname, () => {
     console.log(`Server running at http://${hostname}:${port}/`);
 });

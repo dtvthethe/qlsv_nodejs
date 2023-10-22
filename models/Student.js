@@ -12,6 +12,9 @@ class Student {
         if (page && item_per_page) {
             const row_index = (page - 1) * item_per_page;
             limit = `LIMIT ${row_index}, ${item_per_page}`;
+            // Trang 1: LIMIT 0, 4
+            // Trang 2: LIMIT 4, 4
+            // Trang 3: LIMIT 8, 4
         }
         return limit;
     }
