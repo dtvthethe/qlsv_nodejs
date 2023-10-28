@@ -10,7 +10,6 @@ class RegisterController {
             // Number là hàm chuyển chuỗi thành số
             const page = Number(req.query.page || 1);
             const item_per_page = Number(process.env.ITEM_PER_PAGE);
-            console.log(page, item_per_page);
             let registers;
             let totalRegisters;
             if (search) {
